@@ -48,10 +48,10 @@ export const Node = ({
     if (selectMultiple) {
       console.log(node.id);
       if (!selected) {
-        dispatchSelectedNodes({ type: "add", nodeID: node.id });
+        dispatchSelectedNodes({ type: "add", id: node.id });
         setSelected(true);
       } else {
-        dispatchSelectedNodes({ type: "remove", nodeID: node.id });
+        dispatchSelectedNodes({ type: "remove", id: node.id });
         setSelected(false);
       }
     }

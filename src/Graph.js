@@ -7,16 +7,16 @@ import { Link } from "./Link";
 import { localPoint } from "@visx/event";
 import { useTooltip, useTooltipInPortal } from "@visx/tooltip";
 
-function reducer(state, action) {
+const reducer = (state, action) => {
   switch (action.type) {
     case "add":
-      return [...state, action.nodeID];
+      return [...state, action.id];
     case "remove":
-      return state.filter((item) => item !== action.nodeID);
+      return state.filter((item) => item !== action.id);
     default:
       throw new Error();
   }
-}
+};
 
 export const Graph = ({ graph, height, width, selectMultiple }) => {
   const { nodes, links } = graph;
@@ -24,7 +24,7 @@ export const Graph = ({ graph, height, width, selectMultiple }) => {
   //const [selectedNodes, setSelectedNodes] = useState([]);
 
   const [selectedNodes, dispatchSelectedNodes] = useReducer(reducer, []);
-
+  const [selectedLinks, dispatchSelectedLinks] = useReducer(reducer, []);
   //console.log(selectedNodes);
 
   const {
@@ -63,9 +63,15 @@ export const Graph = ({ graph, height, width, selectMultiple }) => {
   return (
     <div ref={containerRef}>
       <h2>selectedNodes:{JSON.stringify(selectedNodes)}</h2>
+      <h2>selectedLinks:{JSON.stringify(selectedLinks)}</h2>
       <ZoomPortal width={width} height={height}>
         {links.map((link, i) => (
-          <Link key={`link-${i}`} link={link} />
+          <Link
+            key={`link-${i}`}
+            link={link}
+            selectMultiple={selectMultiple}
+            dispatchSelectedLinks={dispatchSelectedLinks}
+          />
         ))}
         {nodes.map((node, i) => (
           <Node
