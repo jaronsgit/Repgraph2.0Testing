@@ -32,16 +32,18 @@ export const Node = ({
   const fillColor = highlighted ? "yellow" : selected ? "green" : "blue";
 
   const outline = (
-    <rect
-      x={bb.x}
-      y={bb.y}
-      rx={8}
-      ry={8}
-      width={bb.width}
-      height={bb.height}
-      className="labeloutline"
-      fill={fillColor}
-    ></rect>
+    // <rect
+    //   x={bb.x}
+    //   y={bb.y}
+    //   rx={8}
+    //   ry={8}
+    //   width={bb.width}
+    //   height={bb.height}
+    //   className="labeloutline"
+    //   fill={fillColor}
+    //   opacity={0.5}
+    // ></rect>
+    <circle r={20} fill={fillColor} opacity={1} />
   );
 
   const handleOnClick = (event) => {
